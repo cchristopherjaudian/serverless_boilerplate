@@ -1,0 +1,22 @@
+service: serverless-boilerplate
+frameworkVersion: '3'
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-1
+
+functions:
+  createTodo:
+    handler: ./src/handlers/todos/todo-handler.testRoute
+    timeout: 45
+    events:
+      - http:
+          method: POST
+          path: /todo
+
