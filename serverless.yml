@@ -3,6 +3,7 @@ frameworkVersion: '3'
 
 plugins:
   - serverless-plugin-typescript
+  # - serverless-bundle
   - serverless-offline
 
 provider:
@@ -12,11 +13,4 @@ provider:
   region: ap-southeast-1
 
 functions:
-  createTodo:
-    handler: ./src/handlers/todos/todo-handler.testRoute
-    timeout: 45
-    events:
-      - http:
-          method: POST
-          path: /todo
-
+  - ${file(./src/handlers/author/functions.yml)}

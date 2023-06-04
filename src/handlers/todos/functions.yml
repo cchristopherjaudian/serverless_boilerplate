@@ -1,6 +1,0 @@
-createTodo:
-handler: /todo-handler.testRoute
-events:
-  - http:
-      method: POST
-      path: /todo

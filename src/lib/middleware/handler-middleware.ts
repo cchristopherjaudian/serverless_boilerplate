@@ -1,10 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import middleWare from 'middy';
-import { jsonBodyParser, httpEventNormalizer, httpErrorHandler } from 'middy/middlewares';
+import middy from '@middy/core';
+import httpJsonBodyParser from '@middy/http-json-body-parser';
+import httpEventNormalizer from '@middy/http-event-normalizer';
+import httpErrorHandler from '@middy/http-error-handler';
 
 class Middleware {
-  public static validateHandler = (fn: any) => {
-    return middleWare(fn).use(jsonBodyParser()).use(httpEventNormalizer()).use(httpErrorHandler());
-  };
+  public execMiddlewares(fn: any) {
+    return middy(fn).use(httpEventNormalizer()).use(httpErrorHandler()).use(httpJsonBodyParser());
+  }
 }
+
 export default Middleware;

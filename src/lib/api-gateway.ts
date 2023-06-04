@@ -1,43 +1,63 @@
-/* 
-
-*/
+import { APIGatewayProxyResult, APIGatewayProxyEvent } from 'aws-lambda';
 import { ResponseCodes } from '../../commons/constants/response-contants';
 import { ResponseStatus } from '../../commons/constants/response-status';
-import { ResponseError } from '../models/error-model';
+type ResponseError = {
+  statusCode?: string;
+  status?: number;
+  message?: string;
+  stack?: string;
+};
 
-class ApiGateway  {
-  public static end(
-    status: number | undefined,
-    statusCode: string | undefined,
-    response: Record<string, unknown> | (Error & ResponseError), 
-  ): Record<string, unknown> {
-    if (response instanceof Error) {
-      statusCode = response.statusCode;
-      status = response.status;
-      response = { message: response.message, stack: response.stack };
-    }
+export interface NormalizedEvents<T> {
+  queryStringParameters: { [name: string]: string };
+  pathParameters: { [name: string]: string };
+  body: T;
+}
 
+class ApiGateway {
+  private _status: number = ResponseStatus.INTERNAL_SERVER_ERROR;
+  private _statusCode: string = ResponseCodes.INTERNAL_SERVER_ERROR;
+  private _response: Record<string, unknown> | unknown;
+
+  public setApigateway(
+    status?: number,
+    statusCode?: string,
+    response?: Record<string, unknown> | (Error & ResponseError),
+  ): this {
+    this._status = status as number;
+    this._statusCode = statusCode as string;
+    this._response = response;
+
+    return this;
+  }
+
+  public end(): APIGatewayProxyResult {
     return {
       headers: {
         'Access-Control-Allow-Origin': '*', // Required for CORS support to work
         'Access-Control-Allow-Credentials': true, // Required for cookies, authorization headers with HTTPS
       },
-      statusCode: status || ResponseStatus.INTERNAL_SERVER_ERROR,
+      statusCode: this._status,
       body: JSON.stringify({
-        status,
-        code: statusCode || ResponseCodes.INTERNAL_SERVER_ERROR,
-        data: response,
+        status: this._status,
+        code: this._statusCode,
+        data: this._response,
       }),
     };
   }
 
-  public static async to(asyncFunction: CallableFunction): Promise<[unknown, unknown]> {
-    try {
-      const functionValue = await asyncFunction();
-      return [null, functionValue];
-    } catch (error: unknown) {
-      return [error, null];
+  public onError(error: Error & ResponseError): APIGatewayProxyResult {
+    let response;
+    if (error instanceof Error) {
+      error.status = error.status || ResponseStatus.INTERNAL_SERVER_ERROR;
+      error.statusCode = error.statusCode || ResponseCodes.INTERNAL_SERVER_ERROR;
+      response = { message: error.message, stack: error.stack };
     }
+    return this.setApigateway(error.status, error.statusCode, response as Record<string, unknown>).end();
+  }
+
+  public async to(asyncFunction: any): Promise<Record<string, unknown> | APIGatewayProxyResult> {
+    return Promise.resolve(asyncFunction).catch(this.onError);
   }
 }
 

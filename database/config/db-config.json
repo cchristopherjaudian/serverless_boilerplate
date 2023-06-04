@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "username": "root",
+    "password": "",
+    "database": "serverless_boilerplate",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": ":memory:"
+  },
+  "prod": {
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": ""
+  }
+}

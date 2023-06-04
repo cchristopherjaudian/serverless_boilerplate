@@ -4,7 +4,9 @@
   "description": "boilerplate for nodejs typescript (Serverless)",
   "main": "index.js",
   "scripts": {
-    "dev": "sls offline start"
+    "dev": "sls offline start --reloadHandler",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:rollback": "npx sequelize-cli db:migrate::undo:all"
   },
   "keywords": [],
   "author": "Calil Christopher Jaudian - Software Engineer",
@@ -15,20 +17,30 @@
     "@types/node": "^18.15.13",
     "@types/prettier": "^2.7.2",
     "@types/serverless": "^3.12.11",
+    "@types/uuid": "^9.0.1",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^5.59.0",
     "eslint": "^8.39.0",
     "prettier": "^2.8.7",
     "sequelize-cli": "^6.6.0",
+    "serverless-bundle": "^6.0.0",
+    "serverless-dotenv-plugin": "^6.0.0",
     "serverless-offline": "^12.0.4",
     "serverless-plugin-typescript": "^2.1.4",
     "typescript": "^5.0.4"
   },
   "dependencies": {
     "@middy/core": "^4.3.1",
+    "@middy/http-error-handler": "^4.5.0",
+    "@middy/http-event-normalizer": "^4.5.0",
+    "@middy/http-json-body-parser": "^4.5.0",
+    "aws-lambda": "^1.0.7",
     "dotenv": "^16.0.3",
     "joi": "^17.9.2",
-    "middy": "^0.36.0",
-    "sequelize": "^6.31.0"
+    "pg": "^8.11.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.31.0",
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
   }
 }

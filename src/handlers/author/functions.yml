@@ -1,0 +1,6 @@
+createAuthor:
+  handler: src/handlers/author/author-handler.createAuthor
+  events:
+    - http:
+        method: POST
+        path: /author
