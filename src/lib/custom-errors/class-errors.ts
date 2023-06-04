@@ -14,4 +14,16 @@ class NotFoundError extends BaseError {
   }
 }
 
-export { NotFoundError };
+class BadRequestError extends BaseError {
+  private status: number;
+  private statusCode: string;
+
+  constructor(message: string) {
+    super(message);
+
+    this.statusCode = ResponseCodes.BAD_REQUEST;
+    this.status = ResponseStatus.BAD_REQUEST;
+  }
+}
+
+export { NotFoundError, BadRequestError };

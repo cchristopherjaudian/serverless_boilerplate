@@ -51,7 +51,6 @@ class ApiGateway {
 
   public async to(asyncFunction: any): Promise<Record<string, unknown> | APIGatewayProxyResult> {
     const value = await Promise.resolve(asyncFunction);
-    console.log('xxxxxxxxxxxxxxx', value);
     return new Promise((resolve, reject) => {
       if (value instanceof Error) {
         reject(this.onError(value));
