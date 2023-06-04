@@ -1,12 +1,15 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import { Options, Sequelize } from 'sequelize';
 import config from './db-config.json';
 import APP_REFERENCES from '../../commons/constants/app-references';
 
 type TDatabase = {
   username?: string;
-  password?: string;
+  password?: string | null;
   database?: string;
   host?: string;
+  port?: number;
   dialect?: string;
   storage?: string;
 };
@@ -19,11 +22,11 @@ if (process.env.NODE_ENV === APP_REFERENCES.ENVIRONMENTS.TEST) {
 }
 
 if (process.env.NODE_ENV === APP_REFERENCES.ENVIRONMENTS.DEV) {
-  sequelize = new Sequelize(configEnv.database!, configEnv.username!, configEnv.password, configEnv as Options);
+  sequelize = new Sequelize(configEnv.database!, configEnv.username!, configEnv.password!, configEnv as Options);
 }
 
 if (process.env.NODE_ENV === APP_REFERENCES.ENVIRONMENTS.PROD) {
-  sequelize = new Sequelize(configEnv.database!, configEnv.username!, configEnv.password, configEnv as Options);
+  sequelize = new Sequelize(configEnv.database!, configEnv.username!, configEnv.password!, configEnv as Options);
 }
 
 export { sequelize };

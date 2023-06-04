@@ -1,20 +1,22 @@
 {
-  "dev": {
-    "username": "root",
-    "password": "",
+  "development": {
+    "username": "postgres",
+    "password": "052997",
     "database": "serverless_boilerplate",
-    "host": "localhost",
-    "dialect": "postgres"
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": 5432
   },
   "test": {
     "dialect": "sqlite",
     "storage": ":memory:"
   },
-  "prod": {
-    "username": "",
+"production": {
+    "username": "root",
     "password": "",
-    "database": "",
-    "host": "",
-    "dialect": ""
+    "database": "serverless_boilerplate",
+    "host": "localhost",
+    "dialect": "postgres" ,   
+    "port": 5432
   }
 }

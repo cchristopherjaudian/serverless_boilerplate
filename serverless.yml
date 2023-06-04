@@ -3,7 +3,6 @@ frameworkVersion: '3'
 
 plugins:
   - serverless-plugin-typescript
-  # - serverless-bundle
   - serverless-offline
 
 provider:
@@ -11,6 +10,13 @@ provider:
   runtime: nodejs18.x
   stage: ${opt:stage, 'dev'}
   region: ap-southeast-1
+  apiGateway:
+    minimumCompressionSize: 1024
+    shouldStartNameWithService: true
+
+custom:
+  serverless-offline:
+    useChildProcesses: false
 
 functions:
   - ${file(./src/handlers/author/functions.yml)}

@@ -4,3 +4,31 @@ createAuthor:
     - http:
         method: POST
         path: /author
+
+getAuthors:
+  handler: src/handlers/author/author-handler.listAllAuthors
+  events:
+    - http:
+        method: GET
+        path: /authors
+
+getAuthor:
+  handler: src/handlers/author/author-handler.getAuthorData
+  events:
+    - http:
+        method: GET
+        path: /authors/{id}
+
+updateAuthor:
+  handler: src/handlers/author/author-handler.updateAuthorData
+  events:
+    - http:
+        method: PATCH
+        path: /authors/{id}
+
+deleteAuthor:
+  handler: src/handlers/author/author-handler.deleteAuthorData
+  events:
+    - http:
+        method: DELETE
+        path: /authors/{id}

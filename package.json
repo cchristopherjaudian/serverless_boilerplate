@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "sls offline start --reloadHandler",
-    "db:migrate": "npx sequelize-cli db:migrate",
-    "db:rollback": "npx sequelize-cli db:migrate::undo:all"
+    "db:migrate": "npx sequelize db:migrate",
+    "db:rollback": "npx sequelize db:migrate:undo:all"
   },
   "keywords": [],
   "author": "Calil Christopher Jaudian - Software Engineer",

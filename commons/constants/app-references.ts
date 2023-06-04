@@ -1,9 +1,9 @@
 class APP_REFERENCES {
   static ENVIRONMENTS = {
-    DEV: 'dev',
+    DEV: 'development',
     TEST: 'test',
-    STAGING: 'stg',
-    PROD: 'PROD',
+    STAGING: 'staging',
+    PROD: 'production',
   };
 }
 

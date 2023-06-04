@@ -40,7 +40,7 @@ AuthorModel.init(
     id: {
       allowNull: false,
       primaryKey: true,
-      type: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
     },
     firstname: {
       allowNull: false,
@@ -80,15 +80,7 @@ AuthorModel.init(
       type: DataTypes.DATE,
     },
   },
-  { sequelize },
+  { sequelize, tableName: 'authors', modelName: 'Author' },
 );
-
-AuthorModel.beforeCreate(async (author) => {
-  author.id = uuid();
-});
-
-AuthorModel.beforeUpdate(async (author) => {
-  author.updatedAt = new Date();
-});
 
 export default AuthorModel;
