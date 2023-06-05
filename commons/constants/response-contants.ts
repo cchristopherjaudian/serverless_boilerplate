@@ -7,6 +7,7 @@ class ResponseCodes {
   static DATA_UPDATED = 'DATA_UPDATED';
   static DATA_DELETED = 'DATA_DELETED';
   static BAD_REQUEST = 'BAD_REQUEST';
+  static RESOURCE_CONFLICT = 'RESOURCE_CONFLICT';
 }
 
 export { ResponseCodes };

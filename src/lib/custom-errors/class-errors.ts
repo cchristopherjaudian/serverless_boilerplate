@@ -26,4 +26,16 @@ class BadRequestError extends BaseError {
   }
 }
 
-export { NotFoundError, BadRequestError };
+class ResourceConflictError extends BaseError {
+  private status: number;
+  private statusCode: string;
+
+  constructor(message: string) {
+    super(message);
+
+    this.statusCode = ResponseCodes.RESOURCE_CONFLICT;
+    this.status = ResponseStatus.RESOURCE_CONFLICT;
+  }
+}
+
+export { NotFoundError, BadRequestError, ResourceConflictError };

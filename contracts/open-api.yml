@@ -1,0 +1,435 @@
+openapi: 3.0.3
+info:
+  title: Serverless Boilerplate - OpenAPI 3.0
+  description: Sample Specification of Serverless Boilerplate
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: cchristopherjaudian@gmail.com
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:3000/dev
+paths:
+  /authors:
+    post:
+      tags:
+        - pet
+      summary: Creates author
+      description: Creates a new author
+      operationId: CreateAuthor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorRequestBody'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAuthor200'
+        '409':
+          description: Resource Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAuthorExists'
+    get:
+      tags:
+        - pet
+      summary: List author
+      description: Retrieves the list of authors
+      operationId: GetAuthorsList
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAuthor200'
+  /authors/{id}:
+    get:
+      tags:
+        - pet
+      summary: Get author
+      description: Retrieves author Data
+      operationId: GetAuthorsData
+      parameters:
+        - in: path
+          name: id # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+          description: The author ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAuthorData200'
+        '404':
+          description: Author not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAuthor404'
+    patch:
+      tags:
+        - pet
+      summary: Update author
+      description: Updates author data
+      operationId: UpdateAuthorData
+      parameters:
+        - in: path
+          name: id # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+          description: The author ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRequestBody'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAuthor200'
+        '404':
+          description: Author not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAuthor404'
+    delete:
+      tags:
+        - pet
+      summary: Update author
+      description: Updates author data
+      operationId: UpdateAuthorData
+      parameters:
+        - in: path
+          name: id # Note the name is the same as in the path
+          required: true
+          schema:
+            type: string
+          description: The author ID
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteAuthor200'
+        '404':
+          description: Author not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAuthor404'
+
+components:
+  schemas:
+    AuthorRequestBody:
+      type: object
+      properties:
+        id:
+          type: string
+          format: int64
+          example: 9588eb50-1e8a-4aae-a525-dec873bb6ca4
+        firstname:
+          type: string
+          example: Calil Christopher
+        lastname:
+          type: string
+          example: Jaudian
+        authorUniqueReference:
+          type: string
+          example: CA-142131
+        address:
+          type: string
+          example: Makati Metro Manila
+        contactNumber:
+          type: string
+          example: '09073891798'
+        emailAddress:
+          type: string
+          example: cchristopher052997@gmail.com
+    CreateAuthor200:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        code:
+          type: string
+          example: DATA_CREATED
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              format: int64
+              example: 9588eb50-1e8a-4aae-a525-dec873bb6ca4
+            firstname:
+              type: string
+              example: Calil Christopher
+            lastname:
+              type: string
+              example: Jaudian
+            authorUniqueReference:
+              type: string
+              example: CA-142131
+            address:
+              type: string
+              example: Makati Metro Manila
+            contactNumber:
+              type: string
+              example: 09073891798
+            emailAddress:
+              type: string
+              example: cchristopher052997@gmail.com
+            createdAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z
+            updatedAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z
+    ErrorAuthorExists:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 409
+        code:
+          type: string
+          example: RESOURCE_CONFLICT
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Author already exists.
+            stack:
+              type: string
+              example: path where the error occured
+    ListAuthor200:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        code:
+          type: string
+          example: LIST_RETRIEVED
+        data:
+          type: object
+          properties:
+            count:
+              type: integer
+              example: 3
+            rows:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  firstname:
+                    type: string
+                  lastname:
+                    type: string
+                  authorUniqueReference:
+                    type: string
+                  address:
+                    type: string
+                  contactNumber:
+                    type: string
+                  emailAddress:
+                    type: string
+              example:
+                - id: e1c374a9-e455-42d7-af6e-c57be5d02f5f
+                  firstname: Calil Christopher
+                  middlename: null
+                  lastname: Jaudian
+                  authorUniqueReference: CA-052997
+                  address: Makati City
+                  contactNumber: '09073891798'
+                  emailAddress: cchristopherjaudian@gmail.com
+                  createdAt: 2023-06-05T02:21:16.932Z
+                  updatedAt: 2023-06-05T02:21:16.935Z
+
+                - id: 9c4a4b45-bc41-488a-92e8-a7d0c7671ca5
+                  firstname: Juan
+                  middlename: null
+                  lastname: Dela Cruz
+                  authorUniqueReference: JD-122523
+                  address: Taguig City
+                  contactNumber: '09071172819'
+                  emailAddress: juandelacruz@gmail.com
+                  createdAt: 2023-06-05T02:22:08.513Z
+                  updatedAt: 2023-06-05T02:22:08.517Z
+
+                - id: e75476a3-18d0-49bc-bc37-230296eb6091
+                  firstname: John
+                  middlename: null
+                  lastname: Doe
+                  authorUniqueReference: JD-123123
+                  address: Bonifacio Global City
+                  contactNumber: '090781728213'
+                  emailAddress: johndoe@gmail.com
+                  createdAt: 2023-06-05T02:21:16.932Z
+                  updatedAt: 2023-06-05T02:21:16.935Z
+    GetAuthorData200:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        code:
+          type: string
+          example: DATA_RETRIEVED
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              format: int64
+              example: 9588eb50-1e8a-4aae-a525-dec873bb6ca4
+            firstname:
+              type: string
+              example: Calil Christopher
+            lastname:
+              type: string
+              example: Jaudian
+            authorUniqueReference:
+              type: string
+              example: CA-142131
+            address:
+              type: string
+              example: Makati Metro Manila
+            contactNumber:
+              type: string
+              example: 09073891798
+            emailAddress:
+              type: string
+              example: cchristopher052997@gmail.com
+            createdAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z
+            updatedAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z
+    ErrorAuthor404:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+        code:
+          type: string
+          example: NOT_FOUND
+        data:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Author does not exists.
+            stack:
+              type: string
+              example: path where the error occured
+    UpdateRequestBody:
+      type: object
+      properties:
+        contactNumber:
+          type: string
+          example: '09153977557'
+        emailAddress:
+          type: string
+          example: calilchristopher052997@gmail.com
+    UpdateAuthor200:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        code:
+          type: string
+          example: DATA_UPDATED
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              format: int64
+              example: 9588eb50-1e8a-4aae-a525-dec873bb6ca4
+            firstname:
+              type: string
+              example: Calil Christopher
+            lastname:
+              type: string
+              example: Jaudian
+            authorUniqueReference:
+              type: string
+              example: CA-142131
+            address:
+              type: string
+              example: Makati Metro Manila
+            contactNumber:
+              type: string
+              example: '09153977557'
+            emailAddress:
+              type: string
+              example: calilchristopher052997@gmail.com
+            createdAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z
+            updatedAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z
+    DeleteAuthor200:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        code:
+          type: string
+          example: DATA_DELETED
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              format: int64
+              example: 9588eb50-1e8a-4aae-a525-dec873bb6ca4
+            firstname:
+              type: string
+              example: Calil Christopher
+            lastname:
+              type: string
+              example: Jaudian
+            authorUniqueReference:
+              type: string
+              example: CA-142131
+            address:
+              type: string
+              example: Makati Metro Manila
+            contactNumber:
+              type: string
+              example: '09153977557'
+            emailAddress:
+              type: string
+              example: calilchristopher052997@gmail.com
+            createdAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z
+            updatedAt:
+              type: string
+              example: 2023-06-05T01:59:55.019Z

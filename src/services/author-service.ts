@@ -1,5 +1,6 @@
+import { Op } from 'sequelize';
 import AuthorModel from '../../database/models/author';
-import { NotFoundError } from '../lib/custom-errors/class-errors';
+import { NotFoundError, ResourceConflictError } from '../lib/custom-errors/class-errors';
 
 export type TAuthorPayload = {
   id: string;
@@ -27,6 +28,27 @@ class AuthorService {
   public async createAuthor(payload: TAuthorPayload): Promise<AuthorModel | Error> {
     console.log('service: initializing createAuthor....');
     try {
+      const isExists = await this._model.findOne({
+        where: {
+          [Op.or]: [
+            {
+              emailAddress: {
+                [Op.eq]: payload.emailAddress,
+              },
+            },
+            {
+              id: {
+                [Op.eq]: payload.id,
+              },
+            },
+          ],
+        },
+      });
+
+      if (isExists) {
+        throw new ResourceConflictError('Author already exists.');
+      }
+
       const newAuthor = await this._model.create(payload);
       return newAuthor;
     } catch (error) {

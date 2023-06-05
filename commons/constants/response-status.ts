@@ -5,6 +5,7 @@ class ResponseStatus {
   static UNAUTHORIZE = 401;
   static INTERNAL_SERVER_ERROR = 500;
   static NOT_FOUND = 404;
+  static RESOURCE_CONFLICT = 409;
 }
 
 export { ResponseStatus };

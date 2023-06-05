@@ -1,0 +1,840 @@
+{
+	"info": {
+		"_postman_id": "366f92fb-8f32-4911-9e2b-a7a529a25af1",
+		"name": "Serverless Boilerplate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Todo",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let uuid =  require('uuid');\r",
+							"let uuidV4 = uuid.v4();\r",
+							"\r",
+							"pm.environment.set('generatedUUID', uuidV4)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"{{generatedUUID}}\",\r\n  \"firstname\": \"John\",\r\n  \"lastname\": \"Doe\",\r\n  \"authorUniqueReference\": \"JD-123123\",\r\n  \"address\": \"Bonifacio Global City\",\r\n  \"contactNumber\": \"090781728213\",\r\n  \"emailAddress\": \"johndoe@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/dev/author",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"dev",
+						"author"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "409 Create Todo",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{generatedUUID}}\",\r\n  \"firstname\": \"string\",\r\n  \"middlename\": \"string\",\r\n  \"lastname\": \"string\",\r\n  \"authorUniqueReference\": \"string\",\r\n  \"address\": \"string\",\r\n  \"contactNumber\": \"string\",\r\n  \"emailAddress\": \"cchristopher@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/author",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"author"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "964"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:14:06 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 409,\n    \"code\": \"RESOURCE_CONFLICT\",\n    \"data\": {\n        \"message\": \"Author already exists.\",\n        \"stack\": \"ResourceConflictError: Author already exists.\\n    at AuthorService.createAuthor (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\services\\\\author-service.js:30:23)\\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\\n    at async ApiGateway.to (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\lib\\\\api-gateway.js:34:23)\\n    at async C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\handlers\\\\author\\\\author-handler.js:20:23\\n    at async runRequest (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\node_modules\\\\@middy\\\\core\\\\index.cjs:114:32)\\n    at async MessagePort.<anonymous> (file:///C:/Users/Calil/Desktop/projects/serverless-boilerplate/node_modules/serverless-offline/src/lambda/handler-runner/worker-thread-runner/workerThreadHelper.js:24:14)\"\n    }\n}"
+				},
+				{
+					"name": "200 Create Todo",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"{{generatedUUID}}\",\r\n  \"firstname\": \"string\",\r\n  \"middlename\": \"string\",\r\n  \"lastname\": \"string\",\r\n  \"authorUniqueReference\": \"string\",\r\n  \"address\": \"string\",\r\n  \"contactNumber\": \"string\",\r\n  \"emailAddress\": \"cchristopherjaudian@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/author",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"author"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "354"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:15:13 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 201,\n    \"code\": \"DATA_CREATED\",\n    \"data\": {\n        \"createdAt\": \"2023-06-05T02:15:13.460Z\",\n        \"id\": \"63e07f63-c1f1-45d9-9816-bb7a096e2dd8\",\n        \"firstname\": \"string\",\n        \"middlename\": \"string\",\n        \"lastname\": \"string\",\n        \"authorUniqueReference\": \"string\",\n        \"address\": \"string\",\n        \"contactNumber\": \"string\",\n        \"emailAddress\": \"cchristopherjaudian@gmail.com\",\n        \"updatedAt\": \"2023-06-05T02:15:13.464Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Authors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/dev/authors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"dev",
+						"authors"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 Get Authors",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/authors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"authors"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "vary",
+							"value": "accept-encoding"
+						},
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:22:54 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"code\": \"LIST_RETRIEVED\",\n    \"data\": {\n        \"count\": 3,\n        \"rows\": [\n            {\n                \"id\": \"e1c374a9-e455-42d7-af6e-c57be5d02f5f\",\n                \"firstname\": \"Calil Christopher\",\n                \"authorUniqueReference\": \"CA-052997\",\n                \"middlename\": null,\n                \"lastname\": \"Jaudian\",\n                \"address\": \"Makati City\",\n                \"contactNumber\": \"09073891798\",\n                \"emailAddress\": \"cchristopherjaudian@gmail.com\",\n                \"createdAt\": \"2023-06-05T02:21:16.932Z\",\n                \"updatedAt\": \"2023-06-05T02:21:16.935Z\"\n            },\n            {\n                \"id\": \"9c4a4b45-bc41-488a-92e8-a7d0c7671ca5\",\n                \"firstname\": \"Juan\",\n                \"authorUniqueReference\": \"JD-122523\",\n                \"middlename\": null,\n                \"lastname\": \"Dela Cruz\",\n                \"address\": \"Taguig City\",\n                \"contactNumber\": \"09071172819\",\n                \"emailAddress\": \"juandelacruz@gmail.com\",\n                \"createdAt\": \"2023-06-05T02:22:08.513Z\",\n                \"updatedAt\": \"2023-06-05T02:22:08.517Z\"\n            },\n            {\n                \"id\": \"e75476a3-18d0-49bc-bc37-230296eb6091\",\n                \"firstname\": \"John\",\n                \"authorUniqueReference\": \"JD-123123\",\n                \"middlename\": null,\n                \"lastname\": \"Doe\",\n                \"address\": \"Bonifacio Global City\",\n                \"contactNumber\": \"090781728213\",\n                \"emailAddress\": \"johndoe@gmail.com\",\n                \"createdAt\": \"2023-06-05T02:22:49.209Z\",\n                \"updatedAt\": \"2023-06-05T02:22:49.212Z\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Author Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/dev/authors/12313",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"dev",
+						"authors",
+						"12313"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 Get Author Data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/authors/e1c374a9-e455-42d7-af6e-c57be5d02f5f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"authors",
+								"e1c374a9-e455-42d7-af6e-c57be5d02f5f"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "377"
+						},
+						{
+							"key": "accept-ranges",
+							"value": "bytes"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:35:12 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"code\": \"DATA_RETRIEVED\",\n    \"data\": {\n        \"id\": \"e1c374a9-e455-42d7-af6e-c57be5d02f5f\",\n        \"firstname\": \"Calil Christopher\",\n        \"authorUniqueReference\": \"CA-052997\",\n        \"middlename\": null,\n        \"lastname\": \"Jaudian\",\n        \"address\": \"Makati City\",\n        \"contactNumber\": \"09073891798\",\n        \"emailAddress\": \"cchristopherjaudian@gmail.com\",\n        \"createdAt\": \"2023-06-05T02:21:16.932Z\",\n        \"updatedAt\": \"2023-06-05T02:21:16.935Z\"\n    }\n}"
+				},
+				{
+					"name": "404 Get Author Data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/dev/authors/12313",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"authors",
+								"12313"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "949"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:35:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 404,\n    \"code\": \"NOT_FOUND\",\n    \"data\": {\n        \"message\": \"Author does not exists\",\n        \"stack\": \"NotFoundError: Author does not exists\\n    at AuthorService.findOneAuthor (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\services\\\\author-service.js:43:23)\\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\\n    at async ApiGateway.to (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\lib\\\\api-gateway.js:34:23)\\n    at async C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\handlers\\\\author\\\\author-handler.js:36:23\\n    at async runRequest (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\node_modules\\\\@middy\\\\core\\\\index.cjs:114:32)\\n    at async MessagePort.<anonymous> (file:///C:/Users/Calil/Desktop/projects/serverless-boilerplate/node_modules/serverless-offline/src/lambda/handler-runner/worker-thread-runner/workerThreadHelper.js:24:14)\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Author",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"contactNumber\": \"9153977557\",\r\n     \"emailAddress\": \"calilchristopher052997@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/dev/authors/e1c374a9-e455-42d7-af6e-qweqwe",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"dev",
+						"authors",
+						"e1c374a9-e455-42d7-af6e-qweqwe"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 Update Author",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"contactNumber\": \"9153977557\",\r\n     \"emailAddress\": \"calilchristopher052997@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/authors/e1c374a9-e455-42d7-af6e-c57be5d02f5f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"authors",
+								"e1c374a9-e455-42d7-af6e-c57be5d02f5f"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "377"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:42:56 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"code\": \"DATA_UPDATED\",\n    \"data\": {\n        \"id\": \"e1c374a9-e455-42d7-af6e-c57be5d02f5f\",\n        \"firstname\": \"Calil Christopher\",\n        \"authorUniqueReference\": \"CA-052997\",\n        \"middlename\": null,\n        \"lastname\": \"Jaudian\",\n        \"address\": \"Makati City\",\n        \"contactNumber\": \"9153977557\",\n        \"emailAddress\": \"calilchristopher052997@gmail.com\",\n        \"createdAt\": \"2023-06-05T02:21:16.932Z\",\n        \"updatedAt\": \"2023-06-05T02:42:56.972Z\"\n    }\n}"
+				},
+				{
+					"name": "404 Update Author",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"contactNumber\": \"9153977557\",\r\n     \"emailAddress\": \"calilchristopher052997@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/authors/e1c374a9-e455-42d7-af6e-qweqwe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"authors",
+								"e1c374a9-e455-42d7-af6e-qweqwe"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "vary",
+							"value": "accept-encoding"
+						},
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:45:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 404,\n    \"code\": \"NOT_FOUND\",\n    \"data\": {\n        \"message\": \"Author does not exists\",\n        \"stack\": \"NotFoundError: Author does not exists\\n    at AuthorService.findOneAuthor (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\services\\\\author-service.js:43:23)\\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\\n    at async AuthorService.updateAuthor (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\services\\\\author-service.js:64:34)\\n    at async ApiGateway.to (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\lib\\\\api-gateway.js:34:23)\\n    at async C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\handlers\\\\author\\\\author-handler.js:44:23\\n    at async runRequest (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\node_modules\\\\@middy\\\\core\\\\index.cjs:114:32)\\n    at async MessagePort.<anonymous> (file:///C:/Users/Calil/Desktop/projects/serverless-boilerplate/node_modules/serverless-offline/src/lambda/handler-runner/worker-thread-runner/workerThreadHelper.js:24:14)\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Author",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/dev/authors/e75476a3-18d0-49bc-bc37-asdad",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"dev",
+						"authors",
+						"e75476a3-18d0-49bc-bc37-asdad"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "200 Delete Author",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Calil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/authors/e75476a3-18d0-49bc-bc37-230296eb6091",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"authors",
+								"e75476a3-18d0-49bc-bc37-230296eb6091"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "content-length",
+							"value": "357"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:45:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 200,\n    \"code\": \"DATA_DELETED\",\n    \"data\": {\n        \"id\": \"e75476a3-18d0-49bc-bc37-230296eb6091\",\n        \"firstname\": \"John\",\n        \"authorUniqueReference\": \"JD-123123\",\n        \"middlename\": null,\n        \"lastname\": \"Doe\",\n        \"address\": \"Bonifacio Global City\",\n        \"contactNumber\": \"090781728213\",\n        \"emailAddress\": \"johndoe@gmail.com\",\n        \"createdAt\": \"2023-06-05T02:22:49.209Z\",\n        \"updatedAt\": \"2023-06-05T02:22:49.212Z\"\n    }\n}"
+				},
+				{
+					"name": "404 Delete Author",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Calil\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/dev/authors/e75476a3-18d0-49bc-bc37-asdad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"dev",
+								"authors",
+								"e75476a3-18d0-49bc-bc37-asdad"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "access-control-allow-origin",
+							"value": "*"
+						},
+						{
+							"key": "access-control-allow-credentials",
+							"value": "true"
+						},
+						{
+							"key": "access-control-allow-methods",
+							"value": "OPTIONS,GET,POST"
+						},
+						{
+							"key": "access-control-allow-headers",
+							"value": "Content-Type"
+						},
+						{
+							"key": "content-type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "cache-control",
+							"value": "no-cache"
+						},
+						{
+							"key": "vary",
+							"value": "accept-encoding"
+						},
+						{
+							"key": "content-encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 05 Jun 2023 02:46:03 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": 404,\n    \"code\": \"NOT_FOUND\",\n    \"data\": {\n        \"message\": \"Author does not exists\",\n        \"stack\": \"NotFoundError: Author does not exists\\n    at AuthorService.findOneAuthor (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\services\\\\author-service.js:43:23)\\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\\n    at async AuthorService.deleteAuthor (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\services\\\\author-service.js:78:34)\\n    at async ApiGateway.to (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\lib\\\\api-gateway.js:34:23)\\n    at async C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\.build\\\\src\\\\handlers\\\\author\\\\author-handler.js:52:23\\n    at async runRequest (C:\\\\Users\\\\Calil\\\\Desktop\\\\projects\\\\serverless-boilerplate\\\\node_modules\\\\@middy\\\\core\\\\index.cjs:114:32)\\n    at async MessagePort.<anonymous> (file:///C:/Users/Calil/Desktop/projects/serverless-boilerplate/node_modules/serverless-offline/src/lambda/handler-runner/worker-thread-runner/workerThreadHelper.js:24:14)\"\n    }\n}"
+				}
+			]
+		}
+	]
+}
