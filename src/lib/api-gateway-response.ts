@@ -2,34 +2,32 @@ import { APIGatewayProxyResult } from 'aws-lambda';
 import { ResponseCodes } from '../../commons/constants/response-contants';
 import { ResponseStatus } from '../../commons/constants/response-status';
 
-type ResponseError = {
+type TResponseError = {
   statusCode?: string;
   status?: number;
   message?: string;
   stack?: string;
 };
 
-export interface NormalizedEvents<T> {
+export interface INormalizedEvents<T> {
   queryStringParameters: { [name: string]: string };
   pathParameters: { [name: string]: string };
   body: T;
 }
 
-type NormalizedApiGateway = Omit<APIGatewayProxyResult & ResponseError, 'statusCode'>;
-type NormalizedResponseError = Error & ResponseError;
+type TNormalizedApiGateway = Omit<APIGatewayProxyResult & TResponseError, 'statusCode'>;
+type TNormalizedResponseError = Error & TResponseError;
+type TGatewayResponse = [TNormalizedResponseError | null, TNormalizedApiGateway | null];
 
 class ApiGateway {
-  end(
-    status: number,
-    statusCode: string,
-    response: NormalizedApiGateway | NormalizedResponseError,
-  ): APIGatewayProxyResult {
+  end(status: number, statusCode: string, [err, response]: TGatewayResponse): APIGatewayProxyResult {
     console.log('executing {end} lambda gateway...');
 
-    if (response instanceof Error) {
-      status = response.status || ResponseStatus.INTERNAL_SERVER_ERROR;
-      statusCode = response.statusCode || ResponseCodes.INTERNAL_SERVER_ERROR;
-      response = { message: response.message, stack: response.stack } as NormalizedResponseError;
+    let errorReponse;
+    if (err instanceof Error) {
+      status = err.status || ResponseStatus.INTERNAL_SERVER_ERROR;
+      statusCode = err.statusCode || ResponseCodes.INTERNAL_SERVER_ERROR;
+      errorReponse = { message: err.message, stack: err.stack } as TNormalizedResponseError;
     }
 
     return {
@@ -38,7 +36,7 @@ class ApiGateway {
         {
           status,
           code: statusCode,
-          data: response,
+          data: response || errorReponse,
         },
         null,
         2,
