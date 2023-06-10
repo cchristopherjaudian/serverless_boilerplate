@@ -94,7 +94,7 @@ class AuthorService {
   }
 
   public async deleteAuthor(id: string): Promise<AuthorModel | Error> {
-    console.log('service: initializing updateAuthor....');
+    console.log('service: initializing deleteAuthor....');
     try {
       const foundAuthor = (await this.findOneAuthor({ id })) as AuthorModel;
       if (foundAuthor instanceof Error) {
