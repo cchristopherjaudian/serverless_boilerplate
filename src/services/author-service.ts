@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import AuthorModel from '../../database/models/author';
 import { NotFoundError, ResourceConflictError } from '../lib/custom-errors/class-errors';
+import logger from '../../commons/logger';
 
 export type TAuthorPayload = {
   id: string;
@@ -26,7 +27,7 @@ class AuthorService {
   }
 
   public async createAuthor(payload: TAuthorPayload): Promise<AuthorModel | Error> {
-    console.log('service: initializing createAuthor....');
+    logger.info('service: initializing createAuthor....');
     try {
       const isExists = await this._model.findOne({
         where: {
@@ -52,12 +53,13 @@ class AuthorService {
       const newAuthor = await this._model.create(payload);
       return newAuthor;
     } catch (error) {
-      return error as Error;
+      logger.error(error);
+      throw error as Error;
     }
   }
 
   public async findOneAuthor(params: Record<string, unknown>): Promise<AuthorModel | Error> {
-    console.log('service: initializing findOneAuthor....');
+    logger.info('service: initializing findOneAuthor....');
     try {
       const authorData = await this._model.findOne({ where: params });
       if (!authorData) {
@@ -65,22 +67,24 @@ class AuthorService {
       }
       return authorData;
     } catch (error) {
-      return error as Error;
+      logger.error(error);
+      throw error as Error;
     }
   }
 
   public async getAllAuthors(params: Record<string, unknown>): Promise<{ rows: AuthorModel[]; count: number } | Error> {
-    console.log('service: initializing getAllAuthors....');
+    logger.info('service: initializing getAllAuthors....');
     try {
       const authors = await this._model.findAndCountAll({ where: params || {} });
       return authors;
     } catch (error) {
-      return error as Error;
+      logger.error(error);
+      throw error as Error;
     }
   }
 
   public async updateAuthor(id: string, payload: TAuthorUpdatePayload): Promise<AuthorModel | Error> {
-    console.log('service: initializing updateAuthor....');
+    logger.info('service: initializing updateAuthor....');
     try {
       const foundAuthor = (await this.findOneAuthor({ id })) as AuthorModel;
       if (foundAuthor instanceof Error) {
@@ -89,12 +93,13 @@ class AuthorService {
       const updatedAuthor = await foundAuthor.update(payload);
       return updatedAuthor;
     } catch (error) {
-      return error as Error;
+      logger.error(error);
+      throw error as Error;
     }
   }
 
   public async deleteAuthor(id: string): Promise<AuthorModel | Error> {
-    console.log('service: initializing deleteAuthor....');
+    logger.info('service: initializing deleteAuthor....');
     try {
       const foundAuthor = (await this.findOneAuthor({ id })) as AuthorModel;
       if (foundAuthor instanceof Error) {
@@ -103,7 +108,8 @@ class AuthorService {
       await foundAuthor.destroy();
       return foundAuthor;
     } catch (error) {
-      return error as Error;
+      logger.error(error);
+      throw error as Error;
     }
   }
 }

@@ -1,6 +1,7 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
 import { ResponseCodes } from '../../commons/constants/response-contants';
 import { ResponseStatus } from '../../commons/constants/response-status';
+import logger from '../../commons/logger';
 
 type TResponseError = {
   statusCode?: string;
@@ -21,7 +22,7 @@ type TGatewayResponse = [TNormalizedResponseError | null, TNormalizedApiGateway 
 
 class ApiGateway {
   end(status: number, statusCode: string, [err, response]: TGatewayResponse): APIGatewayProxyResult {
-    console.log('executing {end} lambda gateway...');
+    logger.info('executing {end} lambda gateway...');
 
     let errorReponse;
     if (err instanceof Error) {
@@ -45,14 +46,13 @@ class ApiGateway {
   }
 
   public async to(asyncValue: any): Promise<[Error, null] | [null, APIGatewayProxyResult]> {
-    const value = await Promise.resolve(asyncValue);
-    return new Promise((resolve) => {
-      if (value instanceof Error) {
-        return resolve([value, null]);
-      }
-
-      resolve([null, value]);
-    });
+    logger.info('executing {to} lambda gateway...');
+    try {
+      const value = await asyncValue;
+      return [null, value];
+    } catch (error) {
+      return [error as Error, null];
+    }
   }
 }
 
