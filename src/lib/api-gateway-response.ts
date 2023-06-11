@@ -16,8 +16,9 @@ export interface INormalizedEvents<T> {
   body: T;
 }
 
+export type TNormalizedResponseError = Error & TResponseError;
+
 type TNormalizedApiGateway = Omit<APIGatewayProxyResult & TResponseError, 'statusCode'>;
-type TNormalizedResponseError = Error & TResponseError;
 type TGatewayResponse = [TNormalizedResponseError | null, TNormalizedApiGateway | null];
 
 class ApiGateway {
@@ -26,8 +27,8 @@ class ApiGateway {
 
     let errorReponse;
     if (err instanceof Error) {
-      status = err.status || ResponseStatus.INTERNAL_SERVER_ERROR;
-      statusCode = err.statusCode || ResponseCodes.INTERNAL_SERVER_ERROR;
+      status = status || ResponseStatus.INTERNAL_SERVER_ERROR;
+      statusCode = statusCode || ResponseCodes.INTERNAL_SERVER_ERROR;
       errorReponse = { message: err.message, stack: err.stack } as TNormalizedResponseError;
     }
 

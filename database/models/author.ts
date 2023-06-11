@@ -1,5 +1,4 @@
 'use strict';
-import { v4 as uuid } from 'uuid';
 import { Model, CreationOptional, Optional, DataTypes } from 'sequelize';
 import { sequelize } from '../config/connection';
 

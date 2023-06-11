@@ -5,6 +5,7 @@ import AuthorModel from '../../../database/models/author';
 import { ResponseCodes } from '../../../commons/constants/response-contants';
 import { ResponseStatus } from '../../../commons/constants/response-status';
 import logger from '../../../commons/logger';
+import { createAuthorSchema } from '../../lib/request-schemas/author-request';
 
 // Class Instance
 const mwInstance = new Middleware();
@@ -19,7 +20,7 @@ const createAuthor = mwInstance.execMiddlewares(async (event: INormalizedEvents<
 
   logger.info('handler: author created...');
   return lambdaGateway.end(ResponseStatus.CREATED, ResponseCodes.DATA_CREATED, gatewayData);
-});
+}, createAuthorSchema);
 
 const listAllAuthors = mwInstance.execMiddlewares(async (event: INormalizedEvents<TAuthorPayload>) => {
   logger.info('handler: initializing listAllAuthors....');
